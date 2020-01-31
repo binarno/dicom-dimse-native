@@ -2,12 +2,13 @@
 
 using namespace Napi;
 
-class ServerAsyncWorker : public AsyncWorker
+template<class T>
+class ServerAsyncWorker : public AsyncProgressWorker
 {
     public:
         ServerAsyncWorker(std::string data, Function &callback);
 
-        void Execute();
+        void Execute(const ExecutionProgress& progress);
 
         void OnOK();
 
