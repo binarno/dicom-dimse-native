@@ -2,6 +2,7 @@
 
 #include "DataProcessingAsyncWorker.h"
 #include "FindAsyncWorker.h"
+#include "ServerAsyncWorker.h"
 
 using namespace Napi;
 
@@ -21,11 +22,22 @@ void DoFind(const CallbackInfo& info) {
     worker->Queue();
 }
 
+void StartServer(const CallbackInfo& info) {
+    std::string input = info[0].As<String>().Utf8Value();
+    const Function cb = info[1].As<Function>();
+
+    ServerAsyncWorker<int> * worker = new ServerAsyncWorker<int>(cb);
+    worker->Queue();
+
+}
+
 Object Init(Env env, Object exports) {
     exports.Set(String::New(env, "processData"),
                 Function::New(env, ProcessData));
     exports.Set(String::New(env, "doFind"),
                 Function::New(env, DoFind));
+    exports.Set(String::New(env, "startServer"),
+                Function::New(env, StartServer));
     return exports;
 }
 
