@@ -3,8 +3,7 @@
 
 using namespace Napi;
 
-template<class T>
-class ServerAsyncWorker : public AsyncProgressWorker<T>
+class ServerAsyncWorker : public AsyncProgressWorker<uint32_t>
 {
     public:
         ServerAsyncWorker(const Function &callback);
@@ -13,10 +12,8 @@ class ServerAsyncWorker : public AsyncProgressWorker<T>
 
         void OnOK();
 
-        void OnProgress(const T* data, size_t count);
+        void OnProgress(const uint32_t* data, size_t /* count */);
 
     private:
-    std::string _input;
-    std::string _output;
+    std::string echo;
 };
-#include "ServerAsyncWorker.cpp"

@@ -26,7 +26,7 @@ void StartServer(const CallbackInfo& info) {
     std::string input = info[0].As<String>().Utf8Value();
     const Function cb = info[1].As<Function>();
 
-    ServerAsyncWorker<int> * worker = new ServerAsyncWorker<int>(cb);
+    ServerAsyncWorker * worker = new ServerAsyncWorker(cb);
     worker->Queue();
 
 }

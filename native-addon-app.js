@@ -31,7 +31,7 @@ const j = {
     ]
 };
 
-addon.doFind(JSON.stringify(j), (result) => {
+addon.startServer(JSON.stringify(j), (result) => {
     console.log(result);
 });
 
